@@ -12,5 +12,6 @@ return {
       -- Your config here
     })
   end,
-}
+},
+{"nyoom-engineering/oxocarbon.nvim"}
 }
