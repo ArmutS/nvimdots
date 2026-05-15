@@ -1,4 +1,4 @@
-vim.cmd("colorscheme carbonfox")
+vim.cmd("colorscheme onedark")
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
