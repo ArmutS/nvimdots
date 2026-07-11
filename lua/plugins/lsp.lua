@@ -89,6 +89,7 @@ return {
 			cmp.setup({
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
+					{ name = "path" },
 					{ name = "buffer" },
 				}),
 				snippet = {
@@ -99,7 +100,14 @@ return {
 				mapping = cmp.mapping.preset.insert({
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
-					["<CR>"] = cmp.mapping.confirm({ select = true }),
+					["<Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.confirm({ select = true })
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+					["<CR>"] = cmp.config.disable,
 				}),
 			})
 		end,
