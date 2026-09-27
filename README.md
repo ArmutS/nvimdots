@@ -16,4 +16,6 @@ python3 -m venv ~/.local/share/nvim/python-provider
 
 Then run `:UpdateRemotePlugins` in Neovim once. Mason manages the configured language servers, formatters, linters, and debug adapters.
 
+For each project virtual environment used with notebooks, install `ipykernel` in that environment. Opening an `.ipynb` while the venv is active registers and starts its kernel automatically. `Shift+Enter` runs a cell and moves to the next one; `<leader>X` runs the current cell. Outputs remain visible below cells and are saved back to the notebook. Matplotlib and Seaborn PNG plots use `image.nvim` with foot's Sixel support, so ImageMagick must be installed.
+
 The legacy plugins are adapted under `lua/plugins/legacy-*.lua`. Omarchy theme integration and the existing LazyVim structure remain in place.
