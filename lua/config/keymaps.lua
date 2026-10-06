@@ -4,6 +4,10 @@
 
 local map = vim.keymap.set
 
+map("n", "<leader>rp", function()
+  require("config.python_runner").run()
+end, { desc = "Run Python file (startup environment)" })
+
 map("x", "J", ":move '>+1<CR>gv=gv", { desc = "Move selection down" })
 map("x", "K", ":move '<-2<CR>gv=gv", { desc = "Move selection up" })
 map("n", "J", "mzJ`z", { desc = "Join lines without moving cursor" })

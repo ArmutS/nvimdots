@@ -1,4 +1,5 @@
 -- Options are automatically loaded before lazy.nvim startup.
+require("config.python_runner")
 local python_provider = vim.fn.stdpath("data") .. "/python-provider"
 vim.g.python3_host_prog = python_provider .. "/bin/python"
 vim.env.PATH = vim.env.PATH .. ":" .. python_provider .. "/bin"

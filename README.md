@@ -18,4 +18,8 @@ Then run `:UpdateRemotePlugins` in Neovim once. Mason manages the configured lan
 
 For each project virtual environment used with notebooks, install `ipykernel` in that environment. Opening an `.ipynb` while the venv is active registers and starts its kernel automatically. `Shift+Enter` runs a cell and moves to the next one; `<leader>X` runs the current cell. Outputs remain visible below cells and are saved back to the notebook. Matplotlib and Seaborn PNG plots use `image.nvim` with foot's Sixel support, so ImageMagick must be installed.
 
+In normal mode, `<leader>rp` saves and runs the current Python file in a bottom terminal split. It uses the virtual environment active when Neovim started (`VIRTUAL_ENV` or `CONDA_PREFIX`), falling back to the startup PATH's Python if no environment is active. Relative paths use Neovim's current working directory (`:pwd`).
+
+Path completion uses that same working directory: type `pd.read_csv("temp/` to suggest files inside `temp`, or `pd.read_csv("./` to suggest folders and files in the working directory. Accept with `Tab`; directory completions include `/` so you can continue browsing. Use `Ctrl+Space` to request completion manually.
+
 The legacy plugins are adapted under `lua/plugins/legacy-*.lua`. Omarchy theme integration and the existing LazyVim structure remain in place.
