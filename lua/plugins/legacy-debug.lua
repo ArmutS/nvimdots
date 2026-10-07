@@ -1,5 +1,9 @@
 return {
   {
+    "jay-babu/mason-nvim-dap.nvim",
+    opts = { automatic_installation = false },
+  },
+  {
     name = "legacy-dap-adapters",
     dir = vim.fn.stdpath("config") .. "/lua/legacy-dap-adapters",
     dependencies = { "mfussenegger/nvim-dap" },
@@ -12,12 +16,6 @@ return {
         type = "executable",
         command = mason .. "/cpptools/extension/debugAdapters/bin/OpenDebugAD7",
       }
-      dap.adapters.bashdb = {
-        type = "executable",
-        command = mason .. "/bash-debug-adapter/bash-debug-adapter",
-        name = "bashdb",
-      }
-
       local cpp_launch = {
         name = "Launch file",
         type = "cppdbg",
@@ -40,28 +38,6 @@ return {
       }
       dap.configurations.cpp = { cpp_launch, cpp_attach }
       dap.configurations.rust = { vim.deepcopy(cpp_launch), vim.deepcopy(cpp_attach) }
-      dap.configurations.sh = {
-        {
-          type = "bashdb",
-          request = "launch",
-          name = "Launch file",
-          showDebugOutput = true,
-          pathBashdb = mason .. "/bash-debug-adapter/extension/bashdb_dir/bashdb",
-          pathBashdbLib = mason .. "/bash-debug-adapter/extension/bashdb_dir",
-          trace = true,
-          file = "${file}",
-          program = "${file}",
-          cwd = "${workspaceFolder}",
-          pathCat = "cat",
-          pathBash = "/bin/bash",
-          pathMkfifo = "mkfifo",
-          pathPkill = "pkill",
-          args = {},
-          argsString = "",
-          env = {},
-          terminalKind = "integrated",
-        },
-      }
     end,
   },
   {

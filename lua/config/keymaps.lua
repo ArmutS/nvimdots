@@ -36,3 +36,5 @@ map("n", "<leader>fG", "<cmd>FzfLua git_files<CR>", { desc = "Find Git files" })
 
 map("n", "gh", vim.lsp.buf.hover, { desc = "LSP hover" })
 map("n", "<leader>gr", vim.lsp.buf.references, { desc = "LSP references" })
+
+map("n","<leader>cd",":CodexToggle<CR>",{silent = true})

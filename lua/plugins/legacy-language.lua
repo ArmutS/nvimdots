@@ -7,53 +7,25 @@ return {
         update_in_insert = false,
       },
       servers = {
-        pyright = {},
+        jedi_language_server = {},
         rust_analyzer = {},
-        ts_ls = {},
-        cssls = {},
         clangd = {},
-        fish_lsp = {},
+        ts_ls = {},
         html = {},
-        jsonls = {},
-        ltex = {
-          cmd_env = { JDK_JAVA_OPTIONS = "-Djdk.xml.totalEntitySizeLimit=2000000" },
-          settings = {
-            ltex = {
-              language = "tr",
-              additionalRules = { enablePickyRules = true, motherTongue = "tr" },
-              enabled = { "bibtex", "gitcommit", "markdown", "org", "tex", "restructuredtext", "rs", "python" },
-            },
-          },
-        },
-        sqlls = {},
-        bashls = {},
-        svelte = {},
+        lua_ls = { enabled = false },
       },
     },
   },
   {
     "mason-org/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "prettier",
-        "sqlfmt",
-        "pylint",
-        "stylelint",
-        "ast-grep",
-        "cpplint",
-        "htmlhint",
-        "jsonlint",
-        "markdownlint",
-        "sqlfluff",
-        "shellcheck",
-        "cpptools",
-        "bash-debug-adapter",
-        "debugpy",
-      },
-    },
+    opts = function(_, opts)
+      opts.ensure_installed = { "ruff", "prettier", "clang-format", "cpptools", "debugpy" }
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = { highlight = { enable = true } },
+    opts = function(_, opts)
+      opts.ensure_installed = { "python", "rust", "cpp", "javascript", "html", "csv", "lua", "vim", "query" }
+    end,
   },
 }

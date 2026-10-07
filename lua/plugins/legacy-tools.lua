@@ -1,48 +1,24 @@
 return {
-  -- The old null-ls config had no sources. Keep it available without competing
-  -- with LazyVim's Conform and nvim-lint pipelines.
-  {
-    "nvimtools/none-ls.nvim",
-    cmd = "NullLsInfo",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    opts = { sources = {} },
-  },
-  {
-    "jay-babu/mason-null-ls.nvim",
-    lazy = true,
-    opts = { automatic_installation = false, handlers = {} },
-  },
   {
     "stevearc/conform.nvim",
-    opts = {
-      formatters_by_ft = {
+    opts = function(_, opts)
+      opts.formatters_by_ft = {
+        python = { "ruff_format" },
+        rust = { "rustfmt" },
+        c = { "clang_format" },
+        cpp = { "clang_format" },
         javascript = { "prettier" },
         javascriptreact = { "prettier" },
-        typescript = { "prettier" },
-        typescriptreact = { "prettier" },
-        css = { "prettier" },
         html = { "prettier" },
-        json = { "prettier" },
-        jsonc = { "prettier" },
-        markdown = { "prettier" },
-        sql = { "sqlfmt" },
-      },
-    },
+      }
+      opts.formatters = opts.formatters or {}
+      opts.formatters.prettier = { stdin = false, args = { "--write", "$FILENAME" } }
+    end,
   },
   {
     "mfussenegger/nvim-lint",
-    opts = {
-      linters_by_ft = {
-        python = { "pylint" },
-        css = { "stylelint" },
-        cpp = { "cpplint" },
-        html = { "htmlhint" },
-        json = { "jsonlint" },
-        markdown = { "markdownlint" },
-        sql = { "sqlfluff" },
-        sh = { "shellcheck" },
-        bash = { "shellcheck" },
-      },
-    },
+    opts = function(_, opts)
+      opts.linters_by_ft = { python = { "ruff" } }
+    end,
   },
 }

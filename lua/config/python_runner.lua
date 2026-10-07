@@ -33,7 +33,8 @@ function M.run()
     return
   end
 
-  vim.cmd("botright 12new")
+  local height = math.max(1, math.floor((vim.o.lines - vim.o.cmdheight) / 2))
+  vim.cmd("botright " .. height .. "new")
   local job = vim.fn.jobstart({ python, "-u", file }, { term = true, cwd = cwd })
   if job <= 0 then
     vim.notify("Python başlatılamadı: " .. python, vim.log.levels.ERROR)
