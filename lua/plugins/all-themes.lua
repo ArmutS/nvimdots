@@ -4,8 +4,9 @@ return {
 	--
 	-- Omarchy 4 generates most theme specs from default/themed/neovim.lua.tpl on
 	-- top of aether, so the single-theme plugins below (ethereal, vantablack,
-	-- white, monokai-pro, miasma) are only reached by Omarchy 3.8, which ships a
+	-- white, miasma) are only reached by Omarchy 3.8, which ships a
 	-- neovim.lua per theme. Keep them until 3.8 is out of support.
+	-- The old monokai-pro source is unavailable, so it cannot be installed afresh.
 	{
 		"ribru17/bamboo.nvim",
 		lazy = true,
@@ -73,11 +74,6 @@ return {
 	},
 	{
 		"tahayvr/matteblack.nvim",
-		lazy = true,
-		priority = 1000,
-	},
-	{
-		"gthelding/monokai-pro.nvim",
 		lazy = true,
 		priority = 1000,
 	},

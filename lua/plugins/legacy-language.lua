@@ -9,9 +9,10 @@ return {
       servers = {
         jedi_language_server = {},
         rust_analyzer = {},
-        clangd = {},
+        clangd = { mason = false }, -- use the system clangd
         ts_ls = {},
         html = {},
+        ruff = { enabled = false }, -- Ruff runs through nvim-lint and Conform
         lua_ls = { enabled = false },
       },
     },

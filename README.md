@@ -16,7 +16,7 @@ python3 -m venv ~/.local/share/nvim/python-provider
 
 Then run `:UpdateRemotePlugins` in Neovim once. Mason manages the configured language servers, formatters, linters, and debug adapters.
 
-Language tooling is limited to Python (Jedi, Ruff, debugpy), Rust (rust-analyzer, rustfmt, C++ debugger), C/C++ (clangd, clang-format, C++ debugger), JavaScript (TypeScript language server, Prettier), HTML (HTML language server, Prettier), and CSV (syntax highlighting). Rust formatting uses `rustfmt` from the Rust toolchain. CSV has no separate language server or formatter.
+Language tooling is limited to Python (Jedi, Ruff, debugpy), Rust (rust-analyzer, rustfmt, C++ debugger), C/C++ (clangd, clang-format, C++ debugger), JavaScript (TypeScript language server, Prettier), HTML (HTML language server, Prettier), and CSV (syntax highlighting). Rust formatting uses `rustfmt` from the Rust toolchain, and C/C++ uses the system `clangd`. CSV has no separate language server or formatter.
 
 For each project virtual environment used with notebooks, install `ipykernel` in that environment. Opening an `.ipynb` while the venv is active registers and starts its kernel automatically. `Shift+Enter` runs a cell and moves to the next one; `<leader>X` runs the current cell. Outputs remain visible below cells and are saved back to the notebook. Matplotlib and Seaborn PNG plots use `image.nvim` with foot's Sixel support, so ImageMagick must be installed.
 
