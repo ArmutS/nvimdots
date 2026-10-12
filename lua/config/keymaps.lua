@@ -31,6 +31,7 @@ map("n", "<leader>ww", "<cmd>write<CR>", { desc = "Write file" })
 map("n", "<leader>wq", "<cmd>wq<CR>", { desc = "Write and quit" })
 map("n", "<leader>qa", "<cmd>qa<CR>", { desc = "Quit all" })
 map("n", "<leader>nn", "<cmd>bprevious<CR>", { desc = "Previous buffer" })
+map("n", "<leader>sv", "<cmd>vnew<CR>", { desc = "Open empty vertical split" })
 map("n", "<leader>fg", "<cmd>FzfLua live_grep<CR>", { desc = "Live grep" })
 map("n", "<leader>fG", "<cmd>FzfLua git_files<CR>", { desc = "Find Git files" })
 
