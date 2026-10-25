@@ -20,11 +20,19 @@ return {
       require("config.notebook_kernel").setup()
     end,
     keys = {
-      { "<leader>mi", function() require("config.notebook_kernel").init(false) end, desc = "Initialize active venv kernel" },
+      {
+        "<leader>mi",
+        function()
+          require("config.notebook_kernel").init(false)
+        end,
+        desc = "Initialize active venv kernel",
+      },
       { "<leader>mr", "<cmd>MoltenReevaluateCell<CR>", desc = "Run notebook cell" },
       { "<leader>mo", "<cmd>MoltenShowOutput<CR>", desc = "Show notebook output" },
       { "<leader>mh", "<cmd>MoltenHideOutput<CR>", desc = "Hide notebook output" },
       { "<leader>md", "<cmd>MoltenDelete<CR>", desc = "Delete notebook output" },
+      { "<leader>ma", "<cmd>NotebookRunAll<CR>", desc = "Run all notebook cells" },
+      { "<leader>mb", "<cmd>NotebookRunBelow<CR>", desc = "Run current cell and below" },
     },
   },
   {
@@ -52,15 +60,62 @@ return {
     ft = { "python", "markdown", "quarto" },
     dependencies = { "benlubas/molten-nvim" },
     opts = { repl_provider = "molten", syntax_highlight = true },
+    config = function(_, opts)
+      local navigator = require("notebook-navigator")
+      navigator.setup(opts)
+      -- The pinned Molten adapter appends a nil marker when running a whole file.
+      -- Keep the public commands working and preserve separate cell outputs.
+      navigator.run_all_cells = function()
+        return require("config.notebook_kernel").run_all()
+      end
+      navigator.run_cells_below = function()
+        return require("config.notebook_kernel").run_below()
+      end
+    end,
     keys = {
-      { "<S-CR>", function() require("config.notebook_kernel").run_cell(true) end, desc = "Run cell and move" },
-      { "<S-CR>", function()
-        require("config.notebook_kernel").run_cell(true)
-      end, mode = "i", desc = "Run cell and move" },
-      { "<leader>x", function() require("config.notebook_kernel").run_cell(true) end, desc = "Run cell and move" },
-      { "<leader>X", function() require("config.notebook_kernel").run_cell(false) end, desc = "Run cell" },
-      { "]h", function() require("notebook-navigator").move_cell("d") end, desc = "Next cell" },
-      { "[h", function() require("notebook-navigator").move_cell("u") end, desc = "Previous cell" },
+      {
+        "<S-CR>",
+        function()
+          require("config.notebook_kernel").run_cell(true)
+        end,
+        desc = "Run cell and move",
+      },
+      {
+        "<S-CR>",
+        function()
+          require("config.notebook_kernel").run_cell(true)
+        end,
+        mode = "i",
+        desc = "Run cell and move",
+      },
+      {
+        "<leader>x",
+        function()
+          require("config.notebook_kernel").run_cell(true)
+        end,
+        desc = "Run cell and move",
+      },
+      {
+        "<leader>X",
+        function()
+          require("config.notebook_kernel").run_cell(false)
+        end,
+        desc = "Run cell",
+      },
+      {
+        "]h",
+        function()
+          require("notebook-navigator").move_cell("d")
+        end,
+        desc = "Next cell",
+      },
+      {
+        "[h",
+        function()
+          require("notebook-navigator").move_cell("u")
+        end,
+        desc = "Previous cell",
+      },
     },
   },
 }

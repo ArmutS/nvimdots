@@ -1,19 +1,6 @@
 local M = {}
 
--- Capture the interpreter before the provider or plugins change PATH.
-local venv = vim.env.VIRTUAL_ENV
-if not venv or venv == "" then
-  venv = vim.env.CONDA_PREFIX
-end
-local python
-if venv and venv ~= "" then
-  python = venv .. "/bin/python"
-else
-  python = vim.fn.exepath("python")
-  if python == "" then
-    python = vim.fn.exepath("python3")
-  end
-end
+local python = require("config.python_env").python
 
 function M.run()
   local file = vim.api.nvim_buf_get_name(0)
