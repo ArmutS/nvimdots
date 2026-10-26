@@ -62,6 +62,8 @@ return {
       { "<leader>ac", function() require("codex").toggle() end, mode = { "n", "t" }, desc = "Toggle Codex" },
     },
     opts = {
+      -- A CLI exit (or a Neovim restart) should continue this directory's last chat.
+      cmd = { "codex", "resume", "--last" },
       keymaps = { quit = "<C-q>" },
       border = "rounded",
       width = 0.8,
@@ -70,6 +72,33 @@ return {
       panel = false,
       use_buffer = false,
     },
+    config = function(_, opts)
+      local codex = require("codex")
+      local state = require("codex.state")
+      codex.setup(opts)
+
+      local open = codex.open
+      codex.open = function()
+        -- codex.nvim keeps the terminal buffer after the CLI exits. A new job
+        -- needs a fresh buffer; a running job stays intact when its window hides.
+        if not state.job and state.buf and vim.api.nvim_buf_is_valid(state.buf) then
+          codex.close()
+          vim.api.nvim_buf_delete(state.buf, { force = true })
+          state.buf = nil
+        end
+        open()
+        if state.buf and vim.api.nvim_buf_is_valid(state.buf) and vim.bo[state.buf].buftype == "terminal" then
+          if opts.keymaps.quit then
+            vim.keymap.set({ "n", "t" }, opts.keymaps.quit, codex.close, {
+              buffer = state.buf,
+              silent = true,
+              desc = "Hide Codex",
+            })
+          end
+          vim.cmd.startinsert()
+        end
+      end
+    end,
   },
 
   -- Omarchy still chooses the active colorscheme; these are available on demand.
