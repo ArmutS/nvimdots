@@ -21,6 +21,9 @@ return {
         auto_venv = true,
         image_cols = 120,
         image_rows = 32,
+        -- The kernel signature adapter owns Ctrl+K. Jupynvim reapplies its
+        -- default output-navigation maps after LspAttach as well.
+        keymaps = { enter_output_up = false },
         -- Jedi sends position requests for Markdown/output lines that the
         -- notebook's code-only LSP view replaces with empty lines.
         -- Use the kernel LSP in notebooks; Jedi still serves ordinary .py files.
@@ -29,6 +32,7 @@ return {
     end,
     config = function(_, opts)
       local notebook = require("jupynvim")
+      require("config.notebook_signature").setup()
       notebook.setup(opts)
 
       -- Keep familiar commands and aliases alongside jupynvim's defaults.
@@ -53,6 +57,8 @@ return {
             return
           end
           local buf = event.buf
+          require("config.notebook_view").setup(buf)
+          require("config.notebook_scroll").attach(buf)
           local function map(lhs, action, desc)
             vim.keymap.set("n", lhs, action, { buffer = buf, desc = desc })
           end

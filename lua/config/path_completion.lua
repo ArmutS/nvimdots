@@ -4,14 +4,22 @@ function M.register()
   local source = require("cmp_path").new()
   local dirname = source._dirname
 
+  -- Keep paths visible alongside the notebook kernel's quote-triggered items.
+  source.get_trigger_characters = function()
+    return { "/", ".", '"', "'" }
+  end
+
   -- cmp-path requires ./ for relative paths. Also accept quoted Python-style
   -- paths such as "temp/", and suggest the cwd immediately after a quote.
   source._dirname = function(self, params, option)
     local before = params.context.cursor_before_line
     local quoted = before:match("[\"']([^\"']*)$")
     if quoted and not quoted:match("^[~/.$]") and not quoted:match("^%a[%w+.-]*:") then
+      -- Pass only the directory: cmp-path strips letters from the basename,
+      -- which otherwise treats names containing dots or digits as directories.
+      local directory = quoted:match("^(.*/)") or ""
       local context = vim.tbl_extend("force", params.context, {
-        cursor_before_line = before:sub(1, #before - #quoted) .. "./" .. quoted,
+        cursor_before_line = before:sub(1, #before - #quoted) .. "./" .. directory,
       })
       params = vim.tbl_extend("force", params, { context = context })
     end

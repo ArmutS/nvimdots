@@ -5,6 +5,13 @@ return {
     opts = function(_, opts)
       local cmp = require("cmp")
       require("config.path_completion").register()
+      opts.view = vim.tbl_deep_extend("force", opts.view or {}, {
+        entries = { name = "custom", vertical_positioning = "below" },
+      })
+      opts.window = opts.window or {}
+      opts.window.completion = vim.tbl_deep_extend("force", opts.window.completion or {}, {
+        max_height = 6,
+      })
       for _, source in ipairs(opts.sources) do
         if source.name == "path" then
           source.name = "cwd_path"
