@@ -31,6 +31,8 @@ Notebooks open in cell command mode: `j`/`k` select cells, `Enter` or `i` edits 
 
 Kitty and Ghostty 1.3+ automatically use inline graphics through the Kitty placeholder protocol. Other terminals, including foot, use Chafa's static ASCII rendering; install `chafa` (`sudo pacman -S chafa` on Arch/Omarchy). Sixel rendering is not supported by jupynvim. ImageMagick 7 is needed for animated GIFs. In tmux, enable `set -g allow-passthrough on` for inline graphics. Switch rendering manually with `:JupynvimImageMode placeholder` or `:JupynvimImageMode chafa`.
 
+SVG plot outputs (including d2l's default Matplotlib figures) are converted to PNG for display using ImageMagick's `magick`. This applies to saved figures and live updates. The original SVG is retained, and the notebook backend saves its original outputs.
+
 In normal mode, `<leader>rp` saves and runs the current Python file in a bottom terminal split. It uses the virtual environment active when Neovim started (`VIRTUAL_ENV` or `CONDA_PREFIX`), falling back to the startup PATH's Python if no environment is active. Relative paths use Neovim's current working directory (`:pwd`).
 
 Path completion uses that same working directory: type `pd.read_csv("temp/` to suggest files inside `temp`, or `pd.read_csv("./` to suggest folders and files in the working directory. Accept with `Tab`; directory completions include `/` so you can continue browsing. Use `Ctrl+Space` to request completion manually.

@@ -32,6 +32,7 @@ return {
     end,
     config = function(_, opts)
       local notebook = require("jupynvim")
+      require("config.notebook_images").setup()
       require("config.notebook_signature").setup()
       notebook.setup(opts)
 
