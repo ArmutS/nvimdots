@@ -113,4 +113,5 @@ return {
 		lazy = true,
 		priority = 1000,
 	},
+    {"sainnhe/gruvbox-material"},
 }

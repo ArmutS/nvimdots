@@ -28,6 +28,7 @@ map("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "Next location item" })
 map("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Previous location item" })
 
 map("n", "<leader>ww", "<cmd>write<CR>", { desc = "Write file" })
+map("n", "<leader>tt", "<cmd>terminal<CR>", { desc = "Open Terminal" })
 map("n", "<leader>wq", "<cmd>wq<CR>", { desc = "Write and quit" })
 map("n", "<leader>qa", "<cmd>qa<CR>", { desc = "Quit all" })
 map("n", "<leader>nn", "<cmd>bprevious<CR>", { desc = "Previous buffer" })

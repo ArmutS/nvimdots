@@ -1,6 +1,6 @@
 # Neovim dots
 
-My Neovim configuration uses LazyVim and keeps Omarchy's active colorscheme in sync. The `lua/plugins/theme.lua` symlink expects the repo to be installed at `~/.config/nvim` on Omarchy.
+My Neovim configuration uses LazyVim and keeps Omarchy's active colorscheme in sync. When the Omarchy theme is unavailable, Neovim uses Tokyo Night, with Habamax as a built-in fallback.
 
 ```sh
 git clone git@github.com:ArmutS/nvimdots.git ~/.config/nvim
