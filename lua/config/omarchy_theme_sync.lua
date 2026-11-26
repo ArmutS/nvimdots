@@ -14,8 +14,8 @@ local function apply_transparency()
 end
 
 function M.apply_default()
-  if (vim.g.colors_name or ""):match("gruvbox-material") then return end
-  if not pcall(vim.cmd.colorscheme, "gruvbox-material") then
+  if vim.g.colors_name == "catppuccin-mocha" then return end
+  if not pcall(vim.cmd.colorscheme, "catppuccin-mocha") then
     vim.cmd.colorscheme("habamax")
   end
   apply_transparency()
